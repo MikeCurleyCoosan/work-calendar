@@ -181,28 +181,33 @@ screen and (min-width: 800px) {
 
 /* ------------------------------------------------------------------------------------------------------ */
 
-.shift-night-st {
+.ph-month>ul.day-grid>li.month-curr.shift-night-st,
+.ph-month>ul.day-grid>li.today.shift-night-st {
     background: linear-gradient(to right,
             #ffffff 30%,
-            #87ceeb 70%) !important;
+            #87ceeb 70%);
 }
 
-.shift-night-en {
+.ph-month>ul.day-grid>li.month-curr.shift-night-en,
+.ph-month>ul.day-grid>li.today.shift-night-en {
     background: linear-gradient(to right,
             #87ceeb 30%,
-            #ffffff 70%) !important;
+            #ffffff 70%);
 }
 
-.shift-night {
-    background-color: #87ceeb !important;
+.ph-month>ul.day-grid>li.month-curr.shift-night,
+.ph-month>ul.day-grid>li.today.shift-night {
+    background-color: #87ceeb;
 }
 
-.shift-day {
-    background-color: #ffdab9 !important;
+.ph-month>ul.day-grid>li.month-curr.shift-day,
+.ph-month>ul.day-grid>li.today.shift-day {
+    background-color: #ffdab9;
 }
 
-.shift-off {
-    background-color: #ffffff !important;
+.ph-month>ul.day-grid>li.month-curr.shift-off,
+.ph-month>ul.day-grid>li.today.shift-off {
+    background-color: #ffffff;
 }
 
 /* ------------------------------------------------------------------------------------------------------ */

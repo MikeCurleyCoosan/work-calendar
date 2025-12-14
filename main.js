@@ -418,10 +418,6 @@ function AboutModal() {
     const STATE_CLOSED = 1;
     const STATE_OPEN = 2;
     let currentState = STATE_CLOSED;
-    let timer;
-    let lblTick = doc.getElementById("lblTick");
-    let tickText = lblTick.innerText;
-    let tickNr = 0;
 
     this.open = () => {
         currentState = STATE_OPEN;
@@ -433,35 +429,9 @@ function AboutModal() {
         this.updateState();
     };
 
-    this.tick = () => {
-        switch (tickNr++) {
-            case 1:
-                lblTick.style.opacity = 1;
-                lblTick.innerText = tickText;
-                break;
-            case 16:
-                lblTick.style.opacity = 0;
-                break;
-            case 20:
-                lblTick.style.opacity = 1;
-                lblTick.innerText = `... ${_dateDiffInDays(new Date(), new Date(2024, 3, 1))} days left`;
-                break;
-            case 35:
-                lblTick.style.opacity = 0;
-                break;
-            case 39:
-                tickNr = 0;
-                break;
-        }
-    };
-
-
     this.updateState = () => {
         switch (currentState) {
             case STATE_OPEN:
-
-                // start timer
-                timer = setInterval(this.tick, 100);
 
                 if (_browserLaunched) {
                     // enable/disable install button
@@ -480,11 +450,6 @@ function AboutModal() {
                 break;
 
             case STATE_CLOSED:
-
-                // restore to "zero" state
-                clearInterval(timer);
-                tickNr = 0;
-                lblTick.innerText = tickText;
 
                 // close modal
                 _obfuscator.classList.remove("is-visible");
@@ -535,10 +500,22 @@ function NoteModal() {
                 const holidays = JSON.parse(localStorage.getItem("dayHolidays") || "{}");
                 
                 noteInput.value = notes[dateStr] || "";
-                if (holidays[dateStr]) {
-                    holidayCheckbox.parentElement.MaterialCheckbox.check();
+                
+                // Ensure MDL components are upgraded
+                if (holidayCheckbox.parentElement.MaterialCheckbox) {
+                    if (holidays[dateStr]) {
+                        holidayCheckbox.parentElement.MaterialCheckbox.check();
+                    } else {
+                        holidayCheckbox.parentElement.MaterialCheckbox.uncheck();
+                    }
                 } else {
-                    holidayCheckbox.parentElement.MaterialCheckbox.uncheck();
+                    // Fallback if MDL not initialized
+                    holidayCheckbox.checked = holidays[dateStr] || false;
+                }
+                
+                // Upgrade MDL textfield component
+                if (noteInput.parentElement.MaterialTextfield) {
+                    noteInput.parentElement.MaterialTextfield.checkDirty();
                 }
 
                 // open modal
@@ -678,7 +655,7 @@ function updateShift() {
     // init shift
     let shift = localStorage.getItem("shift");
     if (!shift) {
-        localStorage.setItem("shift", "shift-C");
+        localStorage.setItem("shift", "shift-D");
     }
     _shift = localStorage.getItem("shift");
 

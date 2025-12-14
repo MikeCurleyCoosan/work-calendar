@@ -26,7 +26,7 @@ var FIRSTDAYOFWEEK = 1;
 var _MS_PER_DAY = 1000 * 60 * 60 * 24;
 var _DATE_ZERO = Date.UTC(2005, 9, 10);
 var _DEBUG = false;
-var _UNKNOWN_SHIFT = "unknown";
+var _UNKNOWN_SHIFT = "shift-unknown";
 
 //
 //

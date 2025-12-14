@@ -210,6 +210,12 @@ screen and (min-width: 800px) {
     background-color: #ffffff;
 }
 
+.ph-month>ul.day-grid>li.month-curr.shift-unknown,
+.ph-month>ul.day-grid>li.today.shift-unknown {
+    background-color: #ff6b6b;
+    color: #ffffff;
+}
+
 /* ------------------------------------------------------------------------------------------------------ */
 
 .mdl-layout__obfuscator {

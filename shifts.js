@@ -7,10 +7,10 @@ const _UNKNOWN_SHIFT = "shift-unknown";
 
 const shift = {};
 
-shift.A = [7*8];
-shift.B = [7*8];
-shift.C = [7*8];
-shift.D = [7*8];
+shift.A = new Array(7*8);
+shift.B = new Array(7*8);
+shift.C = new Array(7*8);
+shift.D = new Array(7*8);
 
 // -------------------------------------
 // 35 1-1. MON

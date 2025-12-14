@@ -12,6 +12,7 @@ var doc = window.document,
     _scroller = {},
     _modShift = {},
     _modAbout = {},
+    _modNote = {},
     _templates = doc.getElementsByTagName("template").item(0).content,
     _monthTemplate = _templates.querySelector("div.ph-month"),
     _dayPrevTemplate = _templates.querySelector("li.month-prev"),
@@ -184,6 +185,8 @@ function MonthScroller(date) {
                 dayTemplate = _dayCurrTemplate.cloneNode(true);
                 dayTemplate.innerText = day.getDate();
                 dayTemplate.classList.add(this.getClassFromDay(day));
+                // Store date as data attribute for note/holiday tracking
+                dayTemplate.dataset.date = day.toISOString().split('T')[0];
                 if (_DEBUG) {
                     dayTemplate.classList.add(this.getDayModulo(day));
                 }
@@ -237,6 +240,9 @@ function MonthScroller(date) {
 
             let el = this.getMonthFragment(new Date(date.setMonth(date.getMonth() - 1)));
             _scrollerDiv.insertBefore(el, _scrollerDiv.firstElementChild);
+            
+            // Restore notes and holidays for new month
+            restoreDayData();
 
         } else if (scrollPosBottom / elHight < RUN_OFF) {
 
@@ -245,6 +251,9 @@ function MonthScroller(date) {
 
             let el = this.getMonthFragment(new Date(date.setMonth(date.getMonth() + 1)));
             _scrollerDiv.appendChild(el);
+            
+            // Restore notes and holidays for new month
+            restoreDayData();
         }
 
         // this.scrollUpdateDebounce();
@@ -481,6 +490,159 @@ function AboutModal() {
 //
 //
 //
+function NoteModal() {
+
+    // Global state variables
+    const STATE_CLOSED = 1;
+    const STATE_OPEN = 2;
+    let currentState = STATE_CLOSED;
+    let selectedDay = null;
+    let selectedDate = null;
+
+    this.open = (dayEl, date) => {
+        selectedDay = dayEl;
+        selectedDate = date;
+        currentState = STATE_OPEN;
+        this.updateState();
+    };
+
+    this.close = () => {
+        currentState = STATE_CLOSED;
+        this.updateState();
+    };
+
+    this.updateState = () => {
+        switch (currentState) {
+            case STATE_OPEN:
+                // Load existing data
+                const dateStr = selectedDate.toISOString().split('T')[0];
+                const notes = JSON.parse(localStorage.getItem("dayNotes") || "{}");
+                const holidays = JSON.parse(localStorage.getItem("dayHolidays") || "{}");
+                
+                noteInput.value = notes[dateStr] || "";
+                if (holidays[dateStr]) {
+                    holidayCheckbox.parentElement.MaterialCheckbox.check();
+                } else {
+                    holidayCheckbox.parentElement.MaterialCheckbox.uncheck();
+                }
+
+                // open modal
+                _obfuscator.classList.add("is-visible");
+                modal.style.display = "flex";
+                break;
+
+            case STATE_CLOSED:
+                // close modal
+                _obfuscator.classList.remove("is-visible");
+                modal.style.display = "none";
+                break;
+        }
+    };
+
+    this.save = () => {
+        if (!selectedDay || !selectedDate) return;
+
+        const dateStr = selectedDate.toISOString().split('T')[0];
+        const notes = JSON.parse(localStorage.getItem("dayNotes") || "{}");
+        const holidays = JSON.parse(localStorage.getItem("dayHolidays") || "{}");
+        
+        const noteVal = noteInput.value.trim();
+        const isHoliday = holidayCheckbox.checked;
+
+        // Save or remove note
+        if (noteVal) {
+            notes[dateStr] = noteVal;
+        } else {
+            delete notes[dateStr];
+        }
+
+        // Save or remove holiday
+        if (isHoliday) {
+            holidays[dateStr] = true;
+        } else {
+            delete holidays[dateStr];
+        }
+
+        localStorage.setItem("dayNotes", JSON.stringify(notes));
+        localStorage.setItem("dayHolidays", JSON.stringify(holidays));
+
+        // Update UI for the selected day
+        updateDayDisplay(selectedDay, dateStr, noteVal, isHoliday);
+
+        this.close();
+    };
+
+    this.resize = () => {
+        currentState = STATE_CLOSED;
+        this.updateState();
+    };
+
+    // modal elements
+    let modal = doc.getElementById("modalNote");
+    let noteInput = doc.getElementById("noteInput");
+    let holidayCheckbox = doc.getElementById("holidayCheckbox");
+    let saveBtn = doc.getElementById("saveNoteBtn");
+    let closeBtn = doc.getElementById("closeNoteBtn");
+
+    saveBtn.onclick = () => this.save();
+    closeBtn.onclick = () => this.close();
+}
+
+//
+//
+// Update day display with note and holiday indicators
+function updateDayDisplay(dayEl, dateStr, noteText, isHoliday) {
+    // Update note indicator
+    if (noteText) {
+        dayEl.classList.add("has-note");
+        dayEl.title = noteText;
+    } else {
+        dayEl.classList.remove("has-note");
+        dayEl.title = "";
+    }
+
+    // Update holiday indicator
+    if (isHoliday) {
+        dayEl.classList.add("is-holiday");
+    } else {
+        dayEl.classList.remove("is-holiday");
+    }
+}
+
+//
+//
+// Restore notes and holidays for all visible days
+function restoreDayData() {
+    const notes = JSON.parse(localStorage.getItem("dayNotes") || "{}");
+    const holidays = JSON.parse(localStorage.getItem("dayHolidays") || "{}");
+
+    doc.querySelectorAll(".month-curr").forEach(dayEl => {
+        const dateStr = dayEl.dataset.date;
+        if (dateStr) {
+            updateDayDisplay(dayEl, dateStr, notes[dateStr], holidays[dateStr]);
+        }
+    });
+}
+
+//
+//
+//
+function attachDayClickHandlers() {
+    // Use event delegation for better performance
+    _scrollerDiv.addEventListener('click', (e) => {
+        const dayEl = e.target.closest('.month-curr');
+        if (dayEl && dayEl.dataset.date) {
+            // Parse date avoiding timezone issues
+            const [year, month, day] = dayEl.dataset.date.split('-').map(Number);
+            const date = new Date(year, month - 1, day);
+            _modNote.open(dayEl, date);
+        }
+    });
+}
+
+//
+//
+//
 function updateShift() {
     // init shift
     let shift = localStorage.getItem("shift");
@@ -508,6 +670,9 @@ function updateShift() {
             lblShift.innerText = "D SHIFT";
             break;
     }
+
+    // Restore notes and holidays after shift update
+    restoreDayData();
 }
 
 //
@@ -561,10 +726,14 @@ function init() {
     _modAbout = new AboutModal();
     doc.getElementById("btnAbout").onclick = _modAbout.open;
 
+    // init note modal
+    _modNote = new NoteModal();
+
     // click on obfuscator to close modals
     _obfuscator.onclick = () => {
         _modShift.close();
         _modAbout.close();
+        _modNote.close();
     };
 
     // install app
@@ -572,6 +741,9 @@ function init() {
 
     // update app with current settings
     updateShift();
+
+    // attach click handlers to days
+    attachDayClickHandlers();
 
     resize();
     window.onresize = resize;
@@ -583,6 +755,7 @@ function init() {
 function resize() {
     _modShift.resize();
     _modAbout.resize();
+    _modNote.resize();
     _scroller.resize();
 }
 
@@ -592,69 +765,5 @@ window.addEventListener("beforeinstallprompt", (e) => {
     // Stash the event so it can be triggered later.
     window._deferredPrompt = e;
 });
-
-// The existing main.js code is kept exactly as before
-// Only the additions are shown here for clarity:
-
-// Track selected day
-let _selectedDay = null;
-
-function attachDayClickEvents() {
-    document.querySelectorAll(".month-curr").forEach(dayEl => {
-        dayEl.onclick = () => {
-            _selectedDay = dayEl;
-            const dateStr = dayEl.dataset.date;
-            const notes = JSON.parse(localStorage.getItem("notes") || "{}");
-            document.getElementById("noteInput").value = notes[dateStr] || "";
-            document.getElementById("modalNote").style.display = "flex";
-        };
-    });
-}
-
-// Save note
-document.getElementById("saveNoteBtn").onclick = () => {
-    if (!_selectedDay) return;
-    const notes = JSON.parse(localStorage.getItem("notes") || "{}");
-    const noteVal = document.getElementById("noteInput").value;
-    const dateStr = _selectedDay.dataset.date;
-
-    if (noteVal) {
-        notes[dateStr] = noteVal;
-        _selectedDay.classList.add("has-note");
-        _selectedDay.title = noteVal;
-    } else {
-        delete notes[dateStr];
-        _selectedDay.classList.remove("has-note");
-        _selectedDay.title = "";
-    }
-
-    localStorage.setItem("notes", JSON.stringify(notes));
-    document.getElementById("modalNote").style.display = "none";
-};
-
-// Close note modal
-document.getElementById("closeNoteBtn").onclick = () => {
-    document.getElementById("modalNote").style.display = "none";
-};
-
-// After rendering month cells, attach click events
-const originalUpdateShift = updateShift;
-updateShift = () => {
-    originalUpdateShift();
-    attachDayClickEvents();
-
-    // Restore notes
-    const notes = JSON.parse(localStorage.getItem("notes") || "{}");
-    document.querySelectorAll(".month-curr").forEach(dayEl => {
-        const dateStr = dayEl.dataset.date;
-        if (notes[dateStr]) {
-            dayEl.classList.add("has-note");
-            dayEl.title = notes[dateStr];
-        }
-    });
-};
-
-
-
 
 })();

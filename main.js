@@ -396,7 +396,7 @@ function ShiftModal() {
     // inputs
     let inputs = modal.querySelectorAll(".settings-list-control input");
     inputs.forEach(element => {
-        element.onclick = inputClick;
+        // Use onchange for checkboxes as it's more reliable
         element.onchange = inputClick;
     });
 }

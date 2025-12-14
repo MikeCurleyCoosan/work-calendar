@@ -1,0 +1,23 @@
+{
+    "name": "ShiftCal",
+    "short_name": "ShiftCal",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#2A3443",
+    "description": "Vistakon shift calendar",
+    "theme_color": "#2A3443",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "./images/icons/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "./images/icons/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+  }

@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Pawel Hryniszak">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Vistakon shift calendar">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Shift Calendar</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="./images/icons/android-chrome-192x192.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <!-- https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="grey">
+    <meta name="apple-mobile-web-app-title" content="Shift Calendar">
+    <link rel="apple-touch-icon-precomposed" href="./images/icons/apple-touch-icon.png">
+
+    <!-- Tile icon for Win8 (150x150 + tile color) -->
+    <meta name="msapplication-TileImage" content="./images/icons/mstile-150x150.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="./images/favicon.ico">
+    <link rel="manifest" href="./manifest.json">
+
+    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+    <!--
+    <link rel="canonical" href="http://www.example.com/">
+    -->
+
+    <link rel="stylesheet" href="./mdl/googlefonts.css">
+    <link rel="stylesheet" href="./mdl/materialicons.css">
+    <link rel="stylesheet" href="./mdl/material.min.css">
+    <link rel="stylesheet" href="./styles.css">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NR979W67L8"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-NR979W67L8');
+    </script>
+
+</head>
+
+<body>
+
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <header class="mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-800">
+            <div class="mdl-layout__header-row">
+                <button id="btnShift" class="btn-big mdl-button mdl-js-button"></button>
+                <div class="mdl-layout-spacer"></div>
+                <button id="btnHome" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab"
+                    style="margin-right: 0.5em;">
+                    <i class="material-icons">home</i>
+                </button>
+                <button id="btnAbout" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+                    <i class="material-icons">info</i>
+                </button>
+            </div>
+        </header>
+
+        <main class="mdl-layout__content">
+            <div class="ph-scroller-wrapper"></div>
+            <!-- IE -->
+            <div id="lblOldCrap" class="hidden">
+                <p>This browser <strong>out of date</strong>. Update browser <a href="http://browsehappy.com/"
+                        target="_blank"> here </a></p>
+                <p>If you are looking for old version of <strong>VISCALENDAR</strong> check here <a
+                        href="https://viscalendar.000webhostapp.com/"> here </a></p>
+            </div>
+        </main>
+
+        <!-- modal shift -->
+        <div id="modalShift" class="modal">
+            <div class="settings-card mdl-card mdl-shadow--2dp">
+                <div class="mdl-card__title mdl-card--expand">
+                    <h2 class="mdl-card__title-text">Switch shift</h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+                    <ul class="settings-list-control mdl-list">
+                        <li class="mdl-list__item">
+                            <span class="mdl-list__item-primary-content">SHIFT A</span>
+                            <span class="mdl-list__item-secondary-action">
+                                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="shift-A">
+                                    <input type="checkbox" id="shift-A" class="mdl-checkbox__input" />
+                                </label>
+                            </span>
+                        </li>
+                        <li class="mdl-list__item">
+                            <span class="mdl-list__item-primary-content">SHIFT B</span>
+                            <span class="mdl-list__item-secondary-action">
+                                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="shift-B">
+                                    <input type="checkbox" id="shift-B" class="mdl-checkbox__input" />
+                                </label>
+                            </span>
+                        </li>
+                        <li class="mdl-list__item">
+                            <span class="mdl-list__item-primary-content">SHIFT C</span>
+                            <span class="mdl-list__item-secondary-action">
+                                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="shift-C">
+                                    <input type="checkbox" id="shift-C" class="mdl-checkbox__input" />
+                                </label>
+                            </span>
+                        </li>
+                        <li class="mdl-list__item">
+                            <span class="mdl-list__item-primary-content">SHIFT D</span>
+                            <span class="mdl-list__item-secondary-action">
+                                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="shift-D">
+                                    <input type="checkbox" id="shift-D" class="mdl-checkbox__input" />
+                                </label>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- modal about -->
+        <div id="modalAbout" class="modal">
+            <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+                <div class="mdl-card__title">
+                    <h2 id="lblTick" class="text-tick mdl-card__title-text">Time is ticking...</h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+                    This is a personal program, what I present here doesn’t necessarily reflect the position of my
+                    employer,
+                    and sometimes, doesn’t reflect mine either.<br>© Pawel Hryniszak<br>March 2020
+                </div>
+                <div class="mdl-card__actions mdl-card--border">
+                    <a id="btnInstall" class="mdl-button mdl-button--colored">
+                        Install as app - add to home screen
+                    </a>
+                </div>
+                <div class="mdl-card__menu">
+                    <a href="https://github.com/phryniszak/viscalendar" target="_blank"
+                        class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                        <i class="material-icons">share</i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- obfuscator -->
+        <div class="mdl-layout__obfuscator"></div>
+
+        <template>
+            <!-- https://codepen.io/geoffgraham/pen/vWXBea -->
+            <div class="ph-month">
+                <header></header>
+
+                <ul class="weekdays">
+                    <li>
+                        <div class="show-for-small-only"></div>
+                        <div class="show-for-medium-only"></div>
+                        <div class="show-for-large"></div>
+                    </li>
+                    <li>
+                        <div class="show-for-small-only"></div>
+                        <div class="show-for-medium-only"></div>
+                        <div class="show-for-large"></div>
+                    </li>
+                    <li>
+                        <div class="show-for-small-only"></div>
+                        <div class="show-for-medium-only"></div>
+                        <div class="show-for-large"></div>
+                    </li>
+                    <li>
+                        <div class="show-for-small-only"></div>
+                        <div class="show-for-medium-only"></div>
+                        <div class="show-for-large"></div>
+                    </li>
+                    <li>
+                        <div class="show-for-small-only"></div>
+                        <div class="show-for-medium-only"></div>
+                        <div class="show-for-large"></div>
+                    </li>
+                    <li>
+                        <div class="show-for-small-only"></div>
+                        <div class="show-for-medium-only"></div>
+                        <div class="show-for-large"></div>
+                    </li>
+                    <li>
+                        <div class="show-for-small-only"></div>
+                        <div class="show-for-medium-only"></div>
+                        <div class="show-for-large"></div>
+                    </li>
+                </ul>
+
+                <ul class="day-grid">
+                </ul>
+            </div>
+            <li class="month-prev"></li>
+            <li class="month-curr">1</li>
+            <li class="month-next"></li>
+
+        </template>
+
+    </div>
+
+    <script src="./loadJS.js"></script>
+    <script src="./mdl/material.min.js"></script>
+
+    <script>
+        if (window.document.documentMode) {
+            window.document.querySelector("template").classList.add("hidden");
+            window.document.getElementById("lblOldCrap").classList.remove("hidden");
+        } else {
+            loadJS("./shifts.js", true);
+            loadJS("./main.js", true);
+            loadJS("./upup.min.js", true);
+            loadJS("./pwa.js", true);
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,4 +1,6 @@
 // https://developers.google.com/s/results/web/fundamentals?q=full%20screen
+(function () {
+
 if (window.__WORK_CALENDAR_MAIN_LOADED__) {
     console.warn("main.js already loaded, skipping duplicate execution");
     return;
@@ -590,3 +592,4 @@ window.addEventListener("beforeinstallprompt", (e) => {
     // Stash the event so it can be triggered later.
     window._deferredPrompt = e;
 });
+})();

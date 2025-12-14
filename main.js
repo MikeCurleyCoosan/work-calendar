@@ -368,6 +368,11 @@ function ShiftModal() {
     };
 
     function inputClick(ev) {
+        // Only proceed if this checkbox is being checked
+        if (!ev.target.checked) {
+            return;
+        }
+        
         // cancel other inputs
         inputs.forEach(element => {
             if (element !== ev.target) {
@@ -390,7 +395,10 @@ function ShiftModal() {
     let modal = doc.getElementById("modalShift");
     // inputs
     let inputs = modal.querySelectorAll(".settings-list-control input");
-    inputs.forEach(element => element.onclick = inputClick);
+    inputs.forEach(element => {
+        // Use onchange for checkboxes as it's more reliable
+        element.onchange = inputClick;
+    });
 }
 
 

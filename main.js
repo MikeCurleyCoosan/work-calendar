@@ -630,10 +630,20 @@ function restoreDayData() {
 function attachDayClickHandlers() {
     // Use event delegation for better performance
     // Handle both click and touch events for iOS compatibility
+    let touchHandled = false;
+    
     const handleDayInteraction = (e) => {
         const dayEl = e.target.closest('.month-curr');
         if (dayEl && dayEl.dataset.date) {
-            e.preventDefault(); // Prevent double-firing on touch devices
+            // Prevent double-firing: touchend fires first, then click
+            if (e.type === 'touchend') {
+                touchHandled = true;
+                e.preventDefault(); // Only prevent default for touch events
+                setTimeout(() => { touchHandled = false; }, 500);
+            } else if (e.type === 'click' && touchHandled) {
+                return; // Skip click if touch was just handled
+            }
+            
             // Parse date avoiding timezone issues
             const [year, month, day] = dayEl.dataset.date.split('-').map(Number);
             const date = new Date(year, month - 1, day);

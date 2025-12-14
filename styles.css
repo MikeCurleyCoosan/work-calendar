@@ -126,17 +126,17 @@ body {
 }
 
 .ph-month>ul.day-grid>li.month-curr {
-    background-color: #2d2d2d;
-    border: 3px solid #404040;
+    background-color: #f5f5f5;
+    border: 3px solid #e0e0e0;
     transition: background-color 500ms linear;
-    color: #e0e0e0;
+    color: #333333;
 }
 
 .ph-month>ul.day-grid>li.today {
-    background-color: #3d3d3d;
+    background-color: #f5f5f5;
     border: 3px solid #0d7377;
     transition: background-color 500ms linear;
-    color: #ffffff;
+    color: #333333;
     font-weight: bold;
 }
 
@@ -183,32 +183,32 @@ screen and (min-width: 800px) {
 
 .shift-night-st {
     background: linear-gradient(to right,
-            #1a1a1a 30%,
-            #3a5f8f 70%);
-    color: #e0e0e0;
+            #f5f5f5 30%,
+            #87ceeb 70%);
+    color: #333333;
 }
 
 .shift-night-en {
     background: linear-gradient(to right,
-            #3a5f8f 30%,
-            #1a1a1a 70%);
-    color: #e0e0e0;
+            #87ceeb 30%,
+            #f5f5f5 70%);
+    color: #333333;
 }
 
 .shift-night {
-    background-color: #3a5f8f;
-    color: #e0e0e0;
+    background-color: #87ceeb;
+    color: #333333;
 }
 
 .shift-day {
-    background-color: #d4824a;
-    color: #ffffff;
+    background-color: #ffdab9;
+    color: #333333;
 }
 
 .ph-month>ul.day-grid>li.shift-off {
-    background-color: #1a1a1a;
-    color: #888888;
-    border: 3px solid #2d2d2d;
+    background-color: #f5f5f5;
+    color: #999999;
+    border: 3px solid #e0e0e0;
 }
 
 /* ------------------------------------------------------------------------------------------------------ */
@@ -246,8 +246,8 @@ screen and (min-width: 800px) {
 
 /* Holiday styling - higher specificity to override shift colors */
 .ph-month > ul.day-grid > li.month-curr.is-holiday {
-    background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
-    color: #ffffff;
+    background: linear-gradient(135deg, #90ee90 0%, #7cd87c 100%);
+    color: #333333;
     font-weight: bold;
 }
 
@@ -328,4 +328,75 @@ screen and (min-width: 800px) {
 
 .mdl-button--fab:hover {
     background-color: #3d3d3d;
+}
+
+/* ------------------------------------------------------------------------------------------------------ */
+/* Shift Legend in Header */
+
+.legend-row {
+    height: auto !important;
+    min-height: 48px;
+    padding: 8px 16px;
+}
+
+.shift-legend {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5em;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    font-size: 0.9em;
+}
+
+.legend-color {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    border: 2px solid #e0e0e0;
+}
+
+.legend-day {
+    background-color: #ffdab9;
+}
+
+.legend-night {
+    background-color: #87ceeb;
+}
+
+.legend-off {
+    background-color: #f5f5f5;
+}
+
+.legend-label {
+    color: #e0e0e0;
+    white-space: nowrap;
+}
+
+/* Responsive legend for smaller screens */
+@media screen and (max-width: 600px) {
+    .legend-row {
+        padding: 4px 8px;
+    }
+    
+    .shift-legend {
+        gap: 0.8em;
+    }
+    
+    .legend-item {
+        font-size: 0.75em;
+        gap: 0.3em;
+    }
+    
+    .legend-color {
+        width: 18px;
+        height: 18px;
+    }
 }

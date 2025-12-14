@@ -126,15 +126,13 @@ body {
 }
 
 .ph-month>ul.day-grid>li.month-curr {
-    background-color: #f5f5f5;
-    border: 3px solid #e0e0e0;
+    border: 3px solid #f3f3f3;
     transition: background-color 500ms linear;
     color: #333333;
 }
 
 .ph-month>ul.day-grid>li.today {
-    background-color: #f5f5f5;
-    border: 3px solid #0d7377;
+    border: 3px solid #504343;
     transition: background-color 500ms linear;
     color: #333333;
     font-weight: bold;

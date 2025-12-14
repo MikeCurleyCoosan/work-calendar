@@ -196,31 +196,41 @@ screen and (min-width: 800px) {
     opacity: 0;
 }
 
-/* Original styles retained ... */
+/* ------------------------------------------------------------------------------------------------------ */
+/* Note and holiday indicators */
+
+.month-curr {
+    position: relative;
+    cursor: pointer;
+}
 
 .month-curr.has-note::after {
     content: "";
     position: absolute;
     bottom: 4px;
     right: 4px;
-    width: 6px;
-    height: 6px;
-    background-color: #ff5722; /* orange dot */
+    width: 8px;
+    height: 8px;
+    background-color: #ff5722;
     border-radius: 50%;
-    animation: pulse 1.5s infinite;
 }
 
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-        opacity: 1;
-    }
-    50% {
-        transform: scale(1.5);
-        opacity: 0.6;
-    }
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
+.month-curr.is-holiday {
+    background-color: #4CAF50 !important;
+    background: linear-gradient(135deg, #66BB6A 0%, #4CAF50 100%) !important;
+    color: white;
+    font-weight: bold;
+}
+
+.month-curr.is-holiday::before {
+    content: "🌴";
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    font-size: 0.8em;
+}
+
+/* Combined holiday and note */
+.month-curr.is-holiday.has-note::after {
+    background-color: white;
 }

@@ -1,4 +1,10 @@
 // https://developers.google.com/s/results/web/fundamentals?q=full%20screen
+if (window.__WORK_CALENDAR_MAIN_LOADED__) {
+    console.warn("main.js already loaded, skipping duplicate execution");
+    return;
+}
+window.__WORK_CALENDAR_MAIN_LOADED__ = true;
+
 console.log("*");
 var doc = window.document,
     _scroller = {},
@@ -13,10 +19,11 @@ var doc = window.document,
     _shift,
     _browserLaunched = true;
 
-const FIRSTDAYOFWEEK = 1;
-const _MS_PER_DAY = 1000 * 60 * 60 * 24;
-const _DATE_ZERO = Date.UTC(2005, 9, 10);
-const _DEBUG = false;
+var FIRSTDAYOFWEEK = 1;
+var _MS_PER_DAY = 1000 * 60 * 60 * 24;
+var _DATE_ZERO = Date.UTC(2005, 9, 10);
+var _DEBUG = false;
+var _UNKNOWN_SHIFT = "unknown";
 
 //
 //

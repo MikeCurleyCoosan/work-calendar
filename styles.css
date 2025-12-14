@@ -272,6 +272,10 @@ screen and (min-width: 800px) {
     border-bottom: none;
 }
 
+.mdl-list__item-primary-content {
+    color: #e0e0e0;
+}
+
 .mdl-card__title-text {
     color: #e0e0e0;
 }

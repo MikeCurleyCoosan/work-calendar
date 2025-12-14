@@ -126,12 +126,14 @@ body {
 }
 
 .ph-month>ul.day-grid>li.month-curr {
+    background-color: #ffffff;
     border: 3px solid #f3f3f3;
     transition: background-color 500ms linear;
     color: #333333;
 }
 
 .ph-month>ul.day-grid>li.today {
+    background-color: #ffffff;
     border: 3px solid #504343;
     transition: background-color 500ms linear;
     color: #333333;
@@ -179,28 +181,33 @@ screen and (min-width: 800px) {
 
 /* ------------------------------------------------------------------------------------------------------ */
 
-.shift-night-st {
+.ph-month>ul.day-grid>li.month-curr.shift-night-st,
+.ph-month>ul.day-grid>li.today.shift-night-st {
     background: linear-gradient(to right,
-            rgb(243, 243, 243) 30%,
-            lightskyblue 70%);
+            #ffffff 30%,
+            #87ceeb 70%);
 }
 
-.shift-night-en {
+.ph-month>ul.day-grid>li.month-curr.shift-night-en,
+.ph-month>ul.day-grid>li.today.shift-night-en {
     background: linear-gradient(to right,
-            lightskyblue 30%,
-            rgb(243, 243, 243) 70%);
+            #87ceeb 30%,
+            #ffffff 70%);
 }
 
-.shift-night {
-    background-color: lightskyblue;
+.ph-month>ul.day-grid>li.month-curr.shift-night,
+.ph-month>ul.day-grid>li.today.shift-night {
+    background-color: #87ceeb;
 }
 
-.shift-day {
-    background-color: peachpuff;
+.ph-month>ul.day-grid>li.month-curr.shift-day,
+.ph-month>ul.day-grid>li.today.shift-day {
+    background-color: #ffdab9;
 }
 
-.shift-off {
-    background-color: rgb(243, 243, 243);
+.ph-month>ul.day-grid>li.month-curr.shift-off,
+.ph-month>ul.day-grid>li.today.shift-off {
+    background-color: #ffffff;
 }
 
 /* ------------------------------------------------------------------------------------------------------ */
@@ -364,7 +371,7 @@ screen and (min-width: 800px) {
 }
 
 .legend-off {
-    background-color: #f5f5f5;
+    background-color: #ffffff;
 }
 
 .legend-label {

@@ -632,7 +632,9 @@ function attachDayClickHandlers() {
     _scrollerDiv.addEventListener('click', (e) => {
         const dayEl = e.target.closest('.month-curr');
         if (dayEl && dayEl.dataset.date) {
-            const date = new Date(dayEl.dataset.date + 'T00:00:00');
+            // Parse date avoiding timezone issues
+            const parts = dayEl.dataset.date.split('-');
+            const date = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
             _modNote.open(dayEl, date);
         }
     });

@@ -215,9 +215,10 @@ screen and (min-width: 800px) {
     border-radius: 50%;
 }
 
-.month-curr.is-holiday {
-    background-color: #4CAF50 !important;
-    background: linear-gradient(135deg, #66BB6A 0%, #4CAF50 100%) !important;
+/* Holiday styling - higher specificity to override shift colors */
+.ph-month > ul.day-grid > li.month-curr.is-holiday {
+    background-color: #4CAF50;
+    background: linear-gradient(135deg, #66BB6A 0%, #4CAF50 100%);
     color: white;
     font-weight: bold;
 }

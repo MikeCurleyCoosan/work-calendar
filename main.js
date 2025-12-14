@@ -368,19 +368,26 @@ function ShiftModal() {
     };
 
     function inputClick(ev) {
-        // Only proceed if this checkbox is being checked
+        // Only allow checking, not unchecking
         if (!ev.target.checked) {
+            // Prevent unchecking - keep it checked
+            ev.target.parentElement.MaterialCheckbox.check();
             return;
         }
         
-        // cancel other inputs
+        // Uncheck all other inputs
         inputs.forEach(element => {
             if (element !== ev.target) {
                 element.parentElement.MaterialCheckbox.uncheck();
             }
         });
-        // save selection
+        
+        // Save selection and update shift pattern
         localStorage.setItem("shift", ev.target.id);
+        _shift = ev.target.id;
+        
+        // Close modal after selection
+        _modShift.close();
     }
 
     function inputInit() {

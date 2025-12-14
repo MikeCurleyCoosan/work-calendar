@@ -3,9 +3,9 @@
     "short_name": "ShiftCal",
     "start_url": "./index.html",
     "display": "standalone",
-    "background_color": "#2A3443",
+    "background_color": "#1a1a1a",
     "description": "Vistakon shift calendar",
-    "theme_color": "#2A3443",
+    "theme_color": "#1f1f1f",
     "version": "1.0.0",
     "orientation": "portrait",
     "icons": [

@@ -6,6 +6,8 @@ body {
     /* Disables pull-to-refresh and overscroll glow effect.
      Still keeps swipe navigations. */
     overscroll-behavior-y: none;
+    background-color: #1a1a1a;
+    color: #e0e0e0;
 }
 
 /* ------------------------------------------------------------------------------------------------------ */
@@ -36,6 +38,8 @@ body {
 .settings-card {
     width: 480px;
     max-width: 90vw;
+    background-color: #2d2d2d;
+    color: #e0e0e0;
 }
 
 /* -------------------------------------------- */
@@ -43,12 +47,14 @@ body {
 .demo-card-wide.mdl-card {
     width: 512px;
     max-width: 90vw;
+    background-color: #2d2d2d;
+    color: #e0e0e0;
 }
 
 .demo-card-wide>.mdl-card__title {
     color: #fff;
     height: 176px;
-    background: url('./images/welcome_card.jpg') center / cover;
+    background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.5)), url('./images/welcome_card.jpg') center / cover;
 }
 
 .demo-card-wide>.mdl-card__menu {
@@ -56,6 +62,10 @@ body {
 }
 
 /* ------------------------------------------------------------------------------------------------------ */
+
+.mdl-layout__content {
+    background-color: #1a1a1a;
+}
 
 .ph-scroller-wrapper {
     position: absolute;
@@ -76,6 +86,7 @@ body {
     min-height: 10vh;
     text-align: center;
     text-transform: uppercase;
+    color: #e0e0e0;
 }
 
 .ph-month>ul {
@@ -102,6 +113,8 @@ body {
 
 .ph-month>.weekdays li {
     height: 4vw;
+    color: #b0b0b0;
+    font-weight: 500;
 }
 
 .ph-month>ul.day-grid>li {
@@ -113,15 +126,18 @@ body {
 }
 
 .ph-month>ul.day-grid>li.month-curr {
-    /* background-color: #eaeaea; */
-    border: 3px solid #f3f3f3;
+    background-color: #2d2d2d;
+    border: 3px solid #404040;
     transition: background-color 500ms linear;
+    color: #e0e0e0;
 }
 
 .ph-month>ul.day-grid>li.today {
-    /* background-color: #eaeaea; */
-    border: 3px solid #504343;
+    background-color: #3d3d3d;
+    border: 3px solid #0d7377;
     transition: background-color 500ms linear;
+    color: #ffffff;
+    font-weight: bold;
 }
 
 /* ------------------------------------------------------------------------------------------------------ */
@@ -167,29 +183,38 @@ screen and (min-width: 800px) {
 
 .shift-night-st {
     background: linear-gradient(to right,
-            rgb(243, 243, 243) 30%,
-            lightskyblue 70%);
+            #2d2d2d 30%,
+            #3a5f8f 70%);
+    color: #e0e0e0;
 }
 
 .shift-night-en {
     background: linear-gradient(to right,
-            lightskyblue 30%,
-            rgb(243, 243, 243) 70%);
+            #3a5f8f 30%,
+            #2d2d2d 70%);
+    color: #e0e0e0;
 }
 
 .shift-night {
-    background-color: lightskyblue;
+    background-color: #3a5f8f;
+    color: #e0e0e0;
 }
 
 .shift-day {
-    background-color: peachpuff;
+    background-color: #d4824a;
+    color: #ffffff;
 }
 
 .shift-off {
-    background-color: rgb(243, 243, 243);
+    background-color: #2d2d2d;
+    color: #888888;
 }
 
 /* ------------------------------------------------------------------------------------------------------ */
+
+.mdl-layout__obfuscator {
+    background-color: rgba(0, 0, 0, 0.7);
+}
 
 .text-tick {
     transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -211,14 +236,15 @@ screen and (min-width: 800px) {
     right: 4px;
     width: 8px;
     height: 8px;
-    background-color: #ff5722;
+    background-color: #ff6b35;
     border-radius: 50%;
+    box-shadow: 0 0 3px rgba(255, 107, 53, 0.8);
 }
 
 /* Holiday styling - higher specificity to override shift colors */
 .ph-month > ul.day-grid > li.month-curr.is-holiday {
-    background: linear-gradient(135deg, #66BB6A 0%, #4CAF50 100%);
-    color: white;
+    background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+    color: #ffffff;
     font-weight: bold;
 }
 
@@ -232,5 +258,67 @@ screen and (min-width: 800px) {
 
 /* Combined holiday and note */
 .month-curr.is-holiday.has-note::after {
-    background-color: white;
+    background-color: #ffd54f;
+}
+
+/* ------------------------------------------------------------------------------------------------------ */
+/* Dark theme modal enhancements */
+
+.settings-list-control .mdl-list__item {
+    border-bottom: 1px solid #404040;
+}
+
+.settings-list-control .mdl-list__item:last-child {
+    border-bottom: none;
+}
+
+.mdl-card__title-text {
+    color: #e0e0e0;
+}
+
+.mdl-card__supporting-text {
+    color: #b0b0b0;
+}
+
+.mdl-card__actions {
+    border-top-color: #404040;
+}
+
+.mdl-textfield__input {
+    color: #e0e0e0;
+    border-bottom-color: #606060;
+}
+
+.mdl-textfield__label {
+    color: #888888;
+}
+
+.mdl-textfield.is-focused .mdl-textfield__label {
+    color: #0d7377;
+}
+
+.mdl-textfield.is-focused .mdl-textfield__input {
+    border-bottom-color: #0d7377;
+}
+
+/* Button styling for dark theme */
+.mdl-button {
+    color: #e0e0e0;
+}
+
+.mdl-button--colored {
+    color: #0d7377;
+}
+
+.mdl-button--icon {
+    color: #e0e0e0;
+}
+
+.mdl-button--fab {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+}
+
+.mdl-button--fab:hover {
+    background-color: #3d3d3d;
 }

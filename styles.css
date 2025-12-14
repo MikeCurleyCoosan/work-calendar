@@ -202,6 +202,8 @@ screen and (min-width: 800px) {
 .month-curr {
     position: relative;
     cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+    touch-action: manipulation;
 }
 
 .month-curr.has-note::after {

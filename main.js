@@ -629,15 +629,21 @@ function restoreDayData() {
 //
 function attachDayClickHandlers() {
     // Use event delegation for better performance
-    _scrollerDiv.addEventListener('click', (e) => {
+    // Handle both click and touch events for iOS compatibility
+    const handleDayInteraction = (e) => {
         const dayEl = e.target.closest('.month-curr');
         if (dayEl && dayEl.dataset.date) {
+            e.preventDefault(); // Prevent double-firing on touch devices
             // Parse date avoiding timezone issues
             const [year, month, day] = dayEl.dataset.date.split('-').map(Number);
             const date = new Date(year, month - 1, day);
             _modNote.open(dayEl, date);
         }
-    });
+    };
+    
+    // Add both click and touchend for better iOS support
+    _scrollerDiv.addEventListener('click', handleDayInteraction);
+    _scrollerDiv.addEventListener('touchend', handleDayInteraction);
 }
 
 //

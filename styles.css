@@ -205,10 +205,10 @@ screen and (min-width: 800px) {
     color: #ffffff;
 }
 
-.shift-off {
+.ph-month>ul.day-grid>li.shift-off {
     background-color: #1a1a1a;
     color: #888888;
-    border: 3px solid #2d2d2d !important;
+    border: 3px solid #2d2d2d;
 }
 
 /* ------------------------------------------------------------------------------------------------------ */

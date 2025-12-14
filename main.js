@@ -633,8 +633,8 @@ function attachDayClickHandlers() {
         const dayEl = e.target.closest('.month-curr');
         if (dayEl && dayEl.dataset.date) {
             // Parse date avoiding timezone issues
-            const parts = dayEl.dataset.date.split('-');
-            const date = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+            const [year, month, day] = dayEl.dataset.date.split('-').map(Number);
+            const date = new Date(year, month - 1, day);
             _modNote.open(dayEl, date);
         }
     });

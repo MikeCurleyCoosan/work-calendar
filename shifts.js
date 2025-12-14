@@ -1,11 +1,11 @@
-var _DAY_SHIFT = "shift-day";
-var _NIGHT_SHIFT = "shift-night";
-var _START_NIGHT_SHIFT = "shift-night-st";
-var _END_NIGHT_SHIFT = "shift-night-en";
-var _DAY_OFF = "shift-off";
-var _UNKNOWN_SHIFT = "shift-unknown";
+const _DAY_SHIFT = "shift-day";
+const _NIGHT_SHIFT = "shift-night";
+const _START_NIGHT_SHIFT = "shift-night-st";
+const _END_NIGHT_SHIFT = "shift-night-en";
+const _DAY_OFF = "shift-off";
+const _UNKNOWN_SHIFT = "shift-unknown";
 
-var shift = {};
+const shift = {};
 
 shift.A = new Array(7*8);
 shift.B = new Array(7*8);

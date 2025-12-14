@@ -183,7 +183,7 @@ screen and (min-width: 800px) {
 
 .shift-night-st {
     background: linear-gradient(to right,
-            #2d2d2d 30%,
+            #1a1a1a 30%,
             #3a5f8f 70%);
     color: #e0e0e0;
 }
@@ -191,7 +191,7 @@ screen and (min-width: 800px) {
 .shift-night-en {
     background: linear-gradient(to right,
             #3a5f8f 30%,
-            #2d2d2d 70%);
+            #1a1a1a 70%);
     color: #e0e0e0;
 }
 
@@ -206,8 +206,9 @@ screen and (min-width: 800px) {
 }
 
 .shift-off {
-    background-color: #2d2d2d;
+    background-color: #1a1a1a;
     color: #888888;
+    border: 3px solid #2d2d2d !important;
 }
 
 /* ------------------------------------------------------------------------------------------------------ */

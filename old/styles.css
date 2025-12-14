@@ -1,0 +1,226 @@
+html,
+body {
+    font-family: 'Roboto', 'Helvetica', sans-serif;
+    user-select: none;
+    /* font-size: calc([minimum size] + ([maximum size] - [minimum size]) * ((100vw - [minimum viewport width]) / ([maximum viewport width] - [minimum viewport width]))); */
+    /* Disables pull-to-refresh and overscroll glow effect.
+     Still keeps swipe navigations. */
+    overscroll-behavior-y: none;
+}
+
+/* ------------------------------------------------------------------------------------------------------ */
+
+.material-icons-rotate {
+    -webkit-transform: translate(-12px, -12px) rotate(45deg);
+    transform: translate(-12px, -12px) rotate(45deg);
+    transition: transform 0.3s ease;
+}
+
+.btn-big {
+    font-size: 2em;
+    height: 2em;
+}
+
+/* ------------------------------------------------------------------------------------------------------ */
+/* https://www.freecodecamp.org/news/how-to-center-things-with-style-in-css-dc87b7542689/ */
+.modal {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+}
+
+/* -------------------------------------------- */
+.settings-card {
+    width: 480px;
+    max-width: 90vw;
+}
+
+/* -------------------------------------------- */
+
+.demo-card-wide.mdl-card {
+    width: 512px;
+    max-width: 90vw;
+}
+
+.demo-card-wide>.mdl-card__title {
+    color: #fff;
+    height: 176px;
+    background: url('./images/welcome_card.jpg') center / cover;
+}
+
+.demo-card-wide>.mdl-card__menu {
+    color: #fff;
+}
+
+/* ------------------------------------------------------------------------------------------------------ */
+
+.ph-scroller-wrapper {
+    position: absolute;
+    width: 100%;
+}
+
+.ph-month {
+    margin-left: 1em;
+    margin-right: 1em;
+    margin-top: 2em;
+}
+
+.ph-month>header {
+    display: flex;
+    align-items: center;
+    font-size: calc(20px + (40 - 20) * ((100vw - 300px) / (1000 - 300)));
+    justify-content: center;
+    min-height: 10vh;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.ph-month>ul {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-gap: 0.25em;
+    margin: 0 auto;
+    max-width: 64em;
+    padding: 0;
+}
+
+.ph-month>ul>li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+    margin-left: 0;
+    font-size: calc(20px + (70 - 20) * ((100vw - 300px) / (1600 - 300)));
+}
+
+.ph-month>.weekdays {
+    margin-bottom: 1em;
+}
+
+.ph-month>.weekdays li {
+    height: 4vw;
+}
+
+.ph-month>ul.day-grid>li {
+    /* background-color: #eaeaea;
+    border: 1px solid #eaeaea; */
+    /* font-size: 3em; */
+    height: 12vw;
+    max-height: 125px;
+}
+
+.ph-month>ul.day-grid>li.month-curr {
+    /* background-color: #eaeaea; */
+    border: 3px solid #f3f3f3;
+    transition: background-color 500ms linear;
+}
+
+.ph-month>ul.day-grid>li.today {
+    /* background-color: #eaeaea; */
+    border: 3px solid #504343;
+    transition: background-color 500ms linear;
+}
+
+/* ------------------------------------------------------------------------------------------------------ */
+
+@media all and (min-width: 600px) {
+    .ph-month>ul {
+        grid-gap: 1em;
+    }
+}
+
+@media all and (min-width: 800px) {
+    .ph-month>ul {
+        grid-gap: 1.5em;
+    }
+
+    .ph-month>.weekdays li {
+        font-size: calc(22px + (25 - 22) * ((100vw - 800px) / (1600 - 800)));
+    }
+
+}
+
+@media screen and (max-width: 0em),
+screen and (min-width: 600px) {
+    .show-for-small-only {
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: 599px),
+screen and (min-width: 800px) {
+    .show-for-medium-only {
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: 799px) {
+    .show-for-large {
+        display: none !important;
+    }
+}
+
+/* ------------------------------------------------------------------------------------------------------ */
+
+.shift-night-st {
+    background: linear-gradient(to right,
+            rgb(243, 243, 243) 30%,
+            lightskyblue 70%);
+}
+
+.shift-night-en {
+    background: linear-gradient(to right,
+            lightskyblue 30%,
+            rgb(243, 243, 243) 70%);
+}
+
+.shift-night {
+    background-color: lightskyblue;
+}
+
+.shift-day {
+    background-color: peachpuff;
+}
+
+.shift-off {
+    background-color: rgb(243, 243, 243);
+}
+
+/* ------------------------------------------------------------------------------------------------------ */
+
+.text-tick {
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+}
+
+/* Original styles retained ... */
+
+.month-curr.has-note::after {
+    content: "";
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    width: 6px;
+    height: 6px;
+    background-color: #ff5722; /* orange dot */
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.5);
+        opacity: 0.6;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
